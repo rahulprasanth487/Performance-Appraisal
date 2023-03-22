@@ -1,0 +1,28 @@
+body{
+      margin: 0;
+      height: 100%;
+}
+
+.navbar-container
+{
+      margin: 0px;
+      border: none;
+      width: 100%;
+      height: 100px;
+      background-color: rgb(13, 131, 249);
+}
+
+
+/* Admin side container */
+/* 
+.side_container
+{
+      width: 150px;
+      background-color: red;
+      height: 100%;
+      position: absolute;
+      top:0px;
+      bottom: 0px;
+      left: 0px;
+      z-index:-1;
+} */

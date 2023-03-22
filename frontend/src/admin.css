@@ -1,0 +1,211 @@
+
+/* admin form */
+label,input {
+      display: block;
+      font-weight: 300;
+}
+
+.admin_log_form h2{
+      text-align: center;
+}
+.admin_log_form input{
+      padding: 8px;
+      margin: 0px auto;
+      width: 100%;
+}
+
+.admin_log_form button
+{
+      text-align: center;
+      padding: 10px;
+      background-color: rgb(36, 211, 255);
+      font-size: 12px;
+      border-radius: 10px;
+      margin: 0px auto;
+      margin-left: 45%;
+      margin-top: 30px;
+}
+
+
+.admin_log_form label
+{
+      width:fit-content;
+      padding: 10px;
+}
+
+.admin_log_form form {
+      margin: 0px auto;
+      width: 75%;   
+}
+
+table button
+{
+      padding: 5px;
+      border-radius: 50%;
+      margin-right: 10px;
+}
+
+table button:nth-child(1):hover {
+      background-color: rgb(0, 145, 255);
+}
+
+table button:nth-child(2):hover
+{
+      background-color: red;
+}
+
+/* side container */
+.side_container
+{
+      background-color: gray;
+      height: 100%;
+}
+
+
+/*Admin teaching workload*/
+
+.teach_workload
+{
+      display: flex;
+}
+
+
+
+/* Edit */
+.Edit{
+      
+      width: 700px;
+      margin: 0px auto;
+      margin-top: 20px;
+      background: rgba(224, 237, 252, 0.5);
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.editTop
+{
+      display: flex;
+      justify-content: space-between;
+      padding: 20px;
+      align-items: center;
+}
+
+.editTop .closeButton:hover
+{
+      color: red;
+}
+
+
+.EditForm
+{
+      padding: 10px;
+      padding-bottom: 60px;
+}
+
+.EditForm .row
+{
+      padding: 15px;
+}
+
+.EditForm input 
+{
+      width:100%;
+      border:none;
+      border-bottom: 2px solid rgb(198, 198, 198);
+      padding: 12px;
+      font-size: 18px;
+}
+
+.EditForm label
+{
+      color: black;
+      font-size: large;
+      font-weight: bold;
+}
+
+
+.EditForm button{
+      float: right;
+}
+
+/* 
+Assessment */
+
+.questionTypeButtons
+{
+      width:100%; 
+      text-align:center;
+      margin:7px;
+      padding:7px; 
+      border:1px solid grey;
+}
+
+.question-form1 input
+{
+      width: 100%;
+      padding: 5px 15px;
+}
+
+.question-form1 label{
+      font: 500;
+      font-size: 20px;
+}
+
+.question-form1 input{
+      font-size: 20px;
+      overflow: scroll;
+}
+
+.question-form1
+{
+      border: 1px solid black;
+      padding: 15px;
+      border-radius: 10px;
+      background-color: rgb(221, 224, 224);
+}
+
+.question-form1 .submit
+{
+      display: flex;
+      justify-content: center;
+}
+
+.questionBox
+{
+      background-color: rgb(204, 204, 204);
+      margin: 20px;
+      padding: 15px;;
+      border-radius: 10px;
+}
+
+.ps-menu-button
+{
+      padding: 10px;
+      margin-bottom: 10px;
+}
+
+.MuiPaper-root .danger
+{
+      background-color: #fd797b;
+}
+
+.MuiPaper-root .success {
+      background-color: #92f7a3;
+}
+
+.col
+{
+      width: 100%;
+}
+
+.MuiTypography-root .col div:nth-child(1),.MuiTypography-root .col div:nth-child(2){
+      font-size: large;
+}
+
+
+.MuiTypography-root .col div b{
+      margin-right: 5px;
+}
