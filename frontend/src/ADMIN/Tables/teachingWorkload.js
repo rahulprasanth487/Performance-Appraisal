@@ -8,7 +8,7 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { useNavigate } from "react-router-dom"
 import TeachingWorkloadEdit from "./teachingWorkloadEdit";
 import AdminEditStatus from "../../CONTEXT/AdminEditStatus";
-import { Container } from "react-bootstrap";
+import { Container,Row,Col } from "react-bootstrap";
 
 const TeachingWorkload = () => {
       const {Obj:obj} = useFetch("http://localhost:4000/api/stafflist/")
@@ -23,6 +23,13 @@ const TeachingWorkload = () => {
       const [entryEdit, setEntryEdit] = useState()
 
       const navigate = useNavigate()
+
+      //FILTER
+      const [filter_cont, setFilter_cont] = useState(table_data)
+      useEffect(() => { setFilter_cont(table_data) }, [table_data])
+      const [aca_year,setAcaYear]=useState("");
+
+
       const [status, setStatus] = useState(() => {
             return JSON.parse(sessionStorage.getItem("showProfile"));
       })
@@ -43,13 +50,35 @@ const TeachingWorkload = () => {
                   setStafflist_status(true)
             }
       },[obj])
+
+
+      const handleYear=()=>{
+            console.log(aca_year.length>0)
+            if ((aca_year).length === 0) { setShowAll(true) }
+            if((aca_year).length>0)
+            {
+                  setFilter_cont(table_data.filter((item) => (item.academic_year).slice(0,(aca_year).length)===(aca_year)))
+            }
+            else{
+                  setFilter_cont(table_data)
+            }
+            // console.log((filter_cont[0].academic_year).slice(0,4))
+            console.log(filter_cont)
+            
+      }
+
+
+      useEffect(()=>{
+            handleYear();
+      },[aca_year])
+      
       
       return ( 
             <AdminEditStatus.Provider value={{showEdit,setShowEdit}}>
                   <>
                         {showEdit && entryEdit && <TeachingWorkloadEdit data={entryEdit} m_id={id} />}
                         {!showEdit && <>
-                              {console.log(table_data)}
+                              {/* {console.log(filter_cont)} */}
                               <Navbar />
                               
                               <div className="teach_workload">
@@ -64,7 +93,7 @@ const TeachingWorkload = () => {
                                           <div className="Cont2">
                                                 <h1 style={{ textAlign: "center" }}>TEACHING WORKLOAD</h1>
 
-                                                <form onSubmit={(e) => { e.preventDefault() }}>
+                                                {/* <form onSubmit={(e) => { e.preventDefault() }}> */}
                                                       <label>Staff name : </label>
                                                       <select onInput={(e) => { setUserdet(e.target.value) }}>
                                                             <option></option>
@@ -74,24 +103,53 @@ const TeachingWorkload = () => {
                                                                   ))
                                                             }
                                                       </select>
-                                                      <br />
-                                                      <label>Semester : </label>
-                                                      <input type="text" name="" onInput={(e) => {
+                                                      <br /><br/>
+                                                      
+                                                      <Row className="mb-3" style={{width:"40%"}}>
+                                                            <Col>
+                                                                  <label>Academic Year From : </label>
+                                                                  <input type="text" name="" onInput={(e) => {setAcaYear(e.target.value)}} />
+                                                            </Col>
+                                                            {/* <Col>
+                                                                  <label>TO : </label>
+                                                                  <input type="text" name="" onInput={(e) => {
+                                                                        if ((e.target.value).length === 0) { setShowAll(true) }
+                                                                        if ((e.target.value).length > 0) {
+                                                                              setFilter_cont(filter_cont.filter((item) => item.academic_year.toLowerCase().includes(e.target.value)))
+                                                                        }
+                                                                        else {
+                                                                              setFilter_cont(table_data)
+                                                                        }
+                                                                        console.log(filter_cont)
 
+                                                                  }} />
+                                                            </Col> */}
+                                                      </Row>
+
+                                                      
+                                                      
+
+
+                                                      <label>Semester : </label>
+                                                      <input type="text" name="" onChange={(e) => {
                                                             setSem(e.target.value)
                                                             if ((e.target.value).length === 0) { setShowAll(true) }
-                                                            setShowAll(false)
+                                                            else { setShowAll(false) }
+                                                            
                                                       }} />
+                                                
+                                                      
+                                                      
                                                       <br />
                                                       <button className="btn btn-primary" onClick={() => { setShowAll(true) }}>SHOW ALL</button>
                                                       <br /><br />
-                                                </form>
+                                                {/* </form> */}
                                                 <h2>Details : "{user_det}"</h2>
                                                 <div className="table-responsive-md">
                                                       <table className="table table-bordered table-striped">
                                                             <thead className="thead-dark">
                                                                   <tr>
-                                                                        <th scope="col">Name</th>
+                                                                        <th scope="col">Academic year</th>
                                                                         <th scope="col">Year</th>
                                                                         <th scope="col">Semester</th>
                                                                         <th scope="col">Branch</th>
@@ -103,11 +161,11 @@ const TeachingWorkload = () => {
                                                                   </tr>
                                                             </thead>
                                                             <tbody>
-
                                                                   {
-                                                                        table_data && (table_data).map((m) => (
-                                                                              ((showAll) || (m.semester === semester)) && <tr>
-                                                                                    <td>{m.name}</td>
+                                                                        
+                                                                        filter_cont && (filter_cont).map((m) => (
+                                                                               (((showAll) || (m.semester === semester)) && <tr>
+                                                                                    <td>{m.academic_year}</td>
                                                                                     <td>{m.year}</td>
                                                                                     <td>{m.semester}</td>
                                                                                     <td>{m.branch}</td>
@@ -127,10 +185,9 @@ const TeachingWorkload = () => {
                                                                                           }}>{<DeleteForeverIcon />}</button>
                                                                                     </td>
 
-                                                                              </tr>
+                                                                              </tr>)
                                                                         ))
                                                                   }
-                                                                  {console.log("Rerendered")}
                                                             </tbody>
                                                       </table>
                                                 </div>

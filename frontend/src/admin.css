@@ -202,10 +202,19 @@ Assessment */
 }
 
 .MuiTypography-root .col div:nth-child(1),.MuiTypography-root .col div:nth-child(2){
-      font-size: large;
+      font-size: medium;
 }
 
 
 .MuiTypography-root .col div b{
       margin-right: 5px;
+}
+
+.AccordionCont .deleteButton
+{
+      background-color:rgb(249, 150, 89);
+      border-radius: 50%;
+      border: none;
+      padding: 10px;
+      font-size: 15px;
 }

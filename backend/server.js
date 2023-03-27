@@ -3,6 +3,7 @@ require('dotenv').config()
 const tableData=require('./routes/tableData')
 const adminLogin=require("./routes/adminLogin")
 const admin_routes=require("./routes/admin_routes")
+const user_routes=require("./routes/userRoutes")
 const express=require('express');
 const app=express();
 const mongoose=require('mongoose');
@@ -21,7 +22,7 @@ app.use('/api/tablesCreate/',tableData)
 app.use('/api/adminlogin/',adminLogin)
 app.use('/api/',admin_routes)
 app.use('/api/',admin_routes)
-
+app.use('/api/user/',user_routes)
  
 //DB connection
 mongoose.set('strictQuery',true);

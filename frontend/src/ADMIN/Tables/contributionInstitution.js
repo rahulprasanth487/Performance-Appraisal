@@ -8,7 +8,7 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { useNavigate } from "react-router-dom"
 import ContributionInstitutionEdit from "./contributionInstitutionEdit";
 import AdminEditStatus from "../../CONTEXT/AdminEditStatus";
-import { Container } from "react-bootstrap";
+import { Container,Row,Col } from "react-bootstrap";
 
 
 const ContributionInstitution = () => {
@@ -33,7 +33,10 @@ const ContributionInstitution = () => {
                   navigate("/admin_log/")
             }
       }, [status])
-
+      
+      //FILTER
+      const [filter_cont, setFilter_cont] = useState(table_data)
+      useEffect(() => { setFilter_cont(table_data) }, [table_data])
       //alert(status)
 
       const [id, setID] = useState(null)
@@ -74,15 +77,22 @@ const ContributionInstitution = () => {
                                                             }
                                                       </select>
                                                       <br />
-                                                      {/* <label>Semester : </label> */}
-                                                      {/* <input type="text" name="" onInput={(e) => {
+                                                      <Row className="mb-3" style={{ width: "40%" }}>
+                                                            <Col>
+                                                                  <label>Academic Year From : </label>
+                                                                  <input type="text" name="" onInput={(e) => {
+                                                                        if ((e.target.value).length === 0) { setShowAll(true) }
+                                                                        if ((e.target.value).length > 0) {
+                                                                              setFilter_cont(table_data.filter((item) => (item.academic_year).slice(0, (e.target.value).length) === (e.target.value)))
+                                                                        }
+                                                                        else {
+                                                                              setFilter_cont(table_data)
+                                                                        }
+                                                                        console.log(filter_cont)
 
-                                                      setSem(e.target.value)
-                                                      if ((e.target.value).length === 0) { setShowAll(true) }
-                                                      setShowAll(false)
-                                                }} />
-                                                <br />
-                                                <button className="btn btn-primary" onClick={() => { setShowAll(true) }}>SHOW ALL</button> */}
+                                                                  }} />
+                                                            </Col>
+                                                      </Row>
                                                       <br /><br />
                                                 </form>
 
@@ -92,6 +102,7 @@ const ContributionInstitution = () => {
                                                       <table className="table table-bordered table-striped">
                                                             <thead className="thead-dark">
                                                                   <tr>
+                                                                        <th scope="col">Academic year</th>
                                                                         <th scope="col">Details</th>
                                                                         <th scope="col">Dept/College/Univ</th>
                                                                         <th scope="col">Type</th>
@@ -103,8 +114,9 @@ const ContributionInstitution = () => {
                                                             <tbody>
 
                                                                   {
-                                                                        table_data && (table_data).map((m) => (
+                                                                        filter_cont && (filter_cont).map((m) => (
                                                                               <tr>
+                                                                                    <td>{m.academic_year}</td>
                                                                                     <td>{m.details}</td>
                                                                                     <td>{m.dept_clg_univ}</td>
                                                                                     <td>{m.type}</td>

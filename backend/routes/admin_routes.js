@@ -570,4 +570,54 @@ router.get("/Approval/",(req,res)=>{
       })
 })
 
+router.delete("/Approval/delete/:_id",(req,res)=>{
+      MongoClient.connect(process.env.MONGO_URI, function (err, db) {
+            var dbo = db.db("Performance_appraisal");
+
+            if(err) throw err;
+
+            dbo.collection("approval_section").remove({"_id":new require("mongodb").ObjectID(req.params._id)},function(err,obj){
+                  if(err) throw err;
+                  console.log("1 document deleted");
+                  res.json(obj);
+            })
+      })
+})
+
+router.post("/Approval/approve/",(req,res)=>{
+      const obj=req.body;
+      delete obj.type;
+      MongoClient.connect(process.env.MONGO_URI, function (err, db) {
+
+            var dbo = db.db("Performance_appraisal");
+
+
+            (obj.type === "signup") && dbo.collection("personal_details").insertOne(obj, function (err, Obj2) {
+                  if (err) throw err;
+                  console.log("Signed Up")
+            })
+
+
+      })
+})
+
+router.patch("/Approval/approve/:_id",(req,res)=>{
+      const { _id } = req.params;
+      MongoClient.connect(process.env.MONGO_URI, function (err, db) {
+            
+            var dbo = db.db("Performance_appraisal");
+            if (err) throw err;
+            var myquery = { "_id": new require("mongodb").ObjectID(_id) };
+            var newValues = { $set: req.body };
+            console.log(req.body)
+
+            dbo.collection("approval_section").findOneAndUpdate(myquery, newValues, function (err, obj) {
+                  if(err) throw err;
+                  console.log("1 document is updated");
+                  res.json(req.body)
+            });
+            
+      })
+})
+
 module.exports=router;

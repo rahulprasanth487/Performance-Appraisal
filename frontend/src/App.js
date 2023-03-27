@@ -1,5 +1,6 @@
 import './App.css';
 import './admin.css';
+import './user.css'
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import AdminDashboard from './ADMIN/adminDashboard';
 import AdminMain from './ADMIN/AdminMain';
@@ -16,12 +17,18 @@ import StudentsFeedback from './ADMIN/Tables/studentFeedback';
 import AssessmentQuestions from './Assessment/assessmentQuestions';
 import RegistrationSignUpApproval from './ADMIN/Approval/registration_signup_approval';
 
+import UserLogin from './USER/UserLogin';
+import UserDashboard from './USER/UserDashboard';
+import UserTeachingWorkload from './USER/userTeachingWorkload';
+
 function App() {
   
   return (
     <div className="App">
       <BrowserRouter>
         <Routes>
+
+          {/* //admin ROUTES */}
           {/* <AdminLoginStatus.Provider value={{ adminStatus,setadminStatus }}> */}
             <Route path='/admin_log' element={<AdminMain />} />
           {/* </AdminLoginStatus.Provider> */}
@@ -38,7 +45,11 @@ function App() {
           <Route path="/admin/feedback/" element={<StudentsFeedback />} />
           <Route path="/admin/assessmentSet/" element={<AssessmentQuestions />}/>
           <Route path="/admin/registration_signUp_approval/" element={<RegistrationSignUpApproval />}/>
+          <Route path='/user/teachingWorkLoad/' element={<UserTeachingWorkload/>} />
 
+
+        {/* //USER ROUTES */}
+        <Route path='/user/' element={<UserLogin />} />
         </Routes>
       </BrowserRouter>
     </div>
