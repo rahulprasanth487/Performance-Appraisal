@@ -43,3 +43,191 @@
       border-radius: 5px;
 }
 
+/* ASSESSMENT */
+.userAssessLogos img
+{
+      width: 18vw;
+      height: 20vh;
+      border-radius: 50%;
+      padding-bottom: 10px;
+}
+
+.userAssessLogos
+{
+      padding: 15px 10px ;
+      border-radius: 20px;     
+}
+
+.userAssessLogos:hover
+{
+      background: rgba(255, 255, 255, 0.25);
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+
+/* Assedd mail not found */
+.EmailNotfound
+{
+      width: 80%;
+      margin: 0px auto;
+      margin-top: 15vh;
+}
+
+
+.assessButtonContainer
+{
+      display: flex;
+      padding: 20px;
+      align-items: center;
+      justify-content: center;
+}
+
+.load
+{
+      height: 100vh;
+      width:100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+}
+
+.questionPageEmail
+{
+      width: 100%;
+      display: flex;
+      align-items: center;
+      padding: 10px;
+}
+
+.questionPageHeading
+{
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 10px;
+      font-size: 30px;
+}
+
+.questionPageTimer
+{
+      width: 100%;
+      display: flex;
+      justify-content: right;
+      align-items: center;
+      padding: 10px;
+      font-size: 25px;
+      color:Red
+}
+
+.QuestionContainer
+{
+      width: 75%;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.25);
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.QuestionBg
+{
+      width: 100%;
+
+}
+.QuestionContainer .row
+{
+      padding: 10px;
+}
+
+
+.questionNumber
+{
+      font-size: 20px;
+      padding: 2px;
+      border-radius: 10px;
+}
+
+.question
+{
+      font-size: 20px;
+      padding: 2px;
+      border-radius: 10px;
+      font-style: italic;
+}
+.options
+{
+      height: 100%;
+      font-size: 20px;
+      padding: 2px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: left;
+}
+
+.AnswerBox
+{
+      width: 100%;
+      height: 100%;
+}
+
+.AnswerBox textarea
+{
+      /* background-color: green; */
+      width: 100%;
+      height: 100%;
+      border: 1px solid gray;
+      border-radius: 10px;
+      padding: 10px;
+      font-size: 17px;
+      line-height: 24px;
+      overflow:visible;
+}
+
+.buttonContainer
+{
+      width: 75%;
+      margin:0px auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+
+}
+.f_b_buttons
+{
+      padding: 10px;
+      /* background-color:violet; */
+      background-color: black;
+      color: white;
+      border-radius: 50%;
+}
+
+.f_b_buttons:hover
+{
+      /* background-color: greenyellow; */
+      background-color: white;
+      color: black;
+}
+
+.submitButton
+{
+      padding: 10px;
+      border-radius:10px ;
+      background-color: green;
+      color:white;
+      width: 25%;
+}
+
+.submitButton:hover{
+      background-color: red;
+      color:black;
+}

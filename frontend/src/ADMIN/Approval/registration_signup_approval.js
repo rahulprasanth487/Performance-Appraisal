@@ -10,6 +10,7 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import avatar from "../../Components/images/avatar.jpg"
 
 
 const RegistrationSignUpApproval = () => {
@@ -18,22 +19,7 @@ const RegistrationSignUpApproval = () => {
       const [ApprovalData,setApprovalData]=useState();
       const [temp,setTemp]=useState(0)    
       const [newObj,setNewObj]=useState(); 
-
-      // const Fetch_Approval_Data = async () => {
-      //       await fetch("http://localhost:4000/api/Approval/")
-      //             .then(res => {
-      //                   if (!res.ok) { throw Error("Error in the code"); };
-      //                   return res.json()
-      //             })
-      //             .then(data => { setApprovalData(data) })
-                  
-
-      //             console.log(ApprovalData)
-      // }
-
       
-
-
       const handleDelete=async (id)=>{
             if(window.confirm("Are you sure?")===true)
             {
@@ -173,7 +159,18 @@ const RegistrationSignUpApproval = () => {
                                                                                     </Col>
                                                                               </Row>
                                                                               <br/>
-                                                                              <Col style={{ display: "flex" }}><div><b> PREVIOS EXPERIENCE DETAILS : </b></div><div>{data.prev_det}</div></Col>
+                                                                              <Row>
+                                                                                          <Col style={{ display: "flex" }}><div><b> PREVIOS EXPERIENCE DETAILS : </b></div><div>{data.prev_det}</div></Col>
+                                                                                          <Col style={{ display: "flex" }}>
+                                                                                                <div>
+                                                                                                      <b>GENDER : </b>
+                                                                                                </div>
+                                                                                                <div>
+                                                                                                      {data.gender}
+                                                                                                </div>
+                                                                                          </Col>
+                                                                              </Row>
+                                                                              
 
                                                                               <br/>
 
@@ -211,6 +208,11 @@ const RegistrationSignUpApproval = () => {
                                                                   </AccordionSummary>
                                                                   <AccordionDetails>
                                                                         <Typography>
+                                                                              <center>
+                                                                                    <Col>
+                                                                                                {data.image ? <img style={{ borderRadius: "50%", margin: "15px" }} src={data.image} alt="" width={"130vw"} height={"130vw"} /> : <img style={{ borderRadius: "50%", margin: "15px" }} src={avatar} alt="" width={"130vw"} height={"130vw"} /> }
+                                                                                    </Col>
+                                                                              </center>
                                                                               <Col style={{ display: "flex" }}><div><b>ABOUT :</b></div><div>{data.about}</div></Col>
                                                                               <br />
                                                                               <Row>
@@ -246,7 +248,17 @@ const RegistrationSignUpApproval = () => {
                                                                                     </Col>
                                                                               </Row>
                                                                               <br />
-                                                                              <Col style={{ display: "flex" }}><div><b> PREVIOS EXPERIENCE DETAILS : </b></div><div>{data.prev_det}</div></Col>
+                                                                              <Row>
+                                                                                    <Col style={{ display: "flex" }}><div><b> PREVIOS EXPERIENCE DETAILS : </b></div><div>{data.prev_det}</div></Col>
+                                                                                    <Col style={{ display: "flex" }}>
+                                                                                          <div>
+                                                                                                <b>GENDER : </b>
+                                                                                          </div>
+                                                                                          <div>
+                                                                                                {data.gender}
+                                                                                          </div>
+                                                                                    </Col>
+                                                                              </Row>
                                                                               <br />
                                                                               {
                                                                                     (data.status === "false") ? <Row style={{ width: "65%", margin: "0px auto" }}>

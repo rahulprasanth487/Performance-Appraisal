@@ -66,8 +66,8 @@ const UserLogin = () => {
                               if(item.password===document.getElementsByName("password")[0].value){
                                     setLoggedUser(item);
                                     alert("Logged in Successfully")
-                                    sessionStorage.setItem("UserLoginStatus",true)
-                                    sessionStorage.setItem("email",item.email)
+                                    localStorage.setItem("UserLoginStatus",true)
+                                    localStorage.setItem("email",item.email)
                                     // alert(loggedUser.length)
                                     
                               }
@@ -83,11 +83,26 @@ const UserLogin = () => {
             }
       }
 
+
+      const handleForgetPassword =async (e)=>{
+
+            window.location.reload();
+            
+                  await fetch(`http://localhost:4000/api/user/forgotPassword/${document.getElementsByName("email")[0].value}`, {
+                        method: "PATCH",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ password: "" })
+                  })
+
+                  
+            }
+      
+
       return ( 
             <>
 
                   <LoggedInUser.Provider value={loggedUser}>
-                        {((JSON.parse(sessionStorage.getItem("UserLoginStatus")) === false) || (JSON.parse(sessionStorage.getItem("UserLoginStatus")) === null)) ? <>
+                        {((JSON.parse(localStorage.getItem("UserLoginStatus")) === false) || (JSON.parse(localStorage.getItem("UserLoginStatus")) === null)) ? <>
                               <Navbar />
                               <Container>
                                     {/* <UserSidebar /> */}
@@ -114,6 +129,14 @@ const UserLogin = () => {
                                                             <Row style={{ margin: 0 }} className="justify-content-md-center">
                                                                   <Col><input type="password" name="password" required /></Col>
                                                             </Row>
+                                                            <span style={{
+                                                                  color:"red",
+                                                                  float:"right",
+                                                                  marginRight:"10px",
+                                                                  cursor:"pointer"
+                                                            }} onClick={
+                                                                  handleForgetPassword
+                                                            }>forgot password</span>
                                                             <br />
                                                       </>}
 

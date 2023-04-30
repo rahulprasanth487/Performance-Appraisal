@@ -1,3 +1,10 @@
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      margin: 0;
+}
 
 /* admin form */
 label,input {
@@ -57,7 +64,7 @@ table button:nth-child(2):hover
 /* side container */
 .side_container
 {
-      background-color: gray;
+      background-color: rgb(217, 217, 217);
       height: 100%;
 }
 
@@ -175,10 +182,16 @@ Assessment */
 
 .questionBox
 {
-      background-color: rgb(204, 204, 204);
+      background-color: rgb(255, 231, 249);
       margin: 20px;
       padding: 15px;;
       border-radius: 10px;
+      width: 100%;
+}
+
+#deleteQuestionIcon:hover
+{
+      color: red;
 }
 
 .ps-menu-button
@@ -217,4 +230,76 @@ Assessment */
       border: none;
       padding: 10px;
       font-size: 15px;
+}
+
+.ValidationQuestion
+{
+      font-size: 20px;
+      font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+      font-style: italic;
+      font-variant:initial;
+}
+
+
+/* COLOR FOR ANSWERS */
+.options2 
+{
+      width: 100%;
+}
+.options2 .MuiFormControl-root
+{
+      width: 100%;
+      margin-left: 10px;
+}
+
+.MuiFormControl-root .MuiFormGroup-root label
+{
+      width: 100%;
+      margin-bottom:10px ;
+}
+#ans
+{
+      border: 3px solid rgb(17, 221, 34);
+      border-radius: 15px;
+      width: 100%;
+      box-shadow: 1px 2px green;
+      background-color: #92f7a3;
+}
+
+.wrongAns
+{
+      border: 3px solid red;
+      border-radius: 15px;
+      width: 100%;
+      box-shadow: 1px 2px red;
+      background-color: #fd797b;
+      
+}
+
+.ValidationTextbox
+{
+      width: 100%;
+}
+
+.ValidationTextbox textarea{
+      width: 100%;
+      padding:10px;
+      border: 3px solid rgb(167, 255, 175);
+      border-radius: 15px;
+      box-shadow: 1px 2px rgb(87, 255, 87);
+      background-color: #daffe0;
+      font-size: 17px;
+}
+
+.ValidateQuestionContainer
+{
+      margin-bottom: 30px;
+      padding: 20px;
+      /* From https://css.glass */
+      background: rgba(0, 255, 234, 0.078);
+      border-radius: 16px;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(0.9px);
+      -webkit-backdrop-filter: blur(0.9px);
+      border: 2px solid rgba(77, 101, 234, 0.52);
 }

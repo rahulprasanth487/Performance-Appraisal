@@ -5,9 +5,9 @@ import AdminLoginStatus from "../CONTEXT/AdminLoginStatus";
 
 const AdminMain = () => {
 
-      console.log("Value on local storage = ",JSON.parse(sessionStorage.getItem("showProfile")));
+      console.log("Value on local storage = ",JSON.parse(localStorage.getItem("showProfile")));
       const [showProfile,setShowProfile]=useState(()=>{
-            const user = sessionStorage.getItem("showProfile");
+            const user = localStorage.getItem("showProfile");
             console.log("Page")
             return JSON.parse(user) || null;
       })

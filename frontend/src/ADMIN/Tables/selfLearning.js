@@ -13,8 +13,9 @@ import { Container,Row,Col } from "react-bootstrap";
 const SelfLearning = () => {
       const { Obj: obj } = useFetch("http://localhost:4000/api/stafflist/")
       const [user_det, setUserdet] = useState()
-      var { Obj: table_data } = useFetch("http://localhost:4000/api/selfLearning/" + user_det)
       const [stafflist_status, setStafflist_status] = useState(false)
+      const [table_data, setTableData] = useState([]);
+      const [aca_year, setAcaYear] = useState(localStorage.getItem("academic_year"));
 
       //FILTER
       const [filter_cont, setFilter_cont] = useState(table_data)
@@ -28,11 +29,11 @@ const SelfLearning = () => {
 
       const navigate = useNavigate()
       const [status, setStatus] = useState(() => {
-            return JSON.parse(sessionStorage.getItem("showProfile"));
+            return JSON.parse(localStorage.getItem("showProfile"));
       })
 
       useEffect(() => {
-            if (JSON.parse(sessionStorage.getItem("showProfile")) === false || JSON.parse(sessionStorage.getItem("showProfile")) == null) {
+            if (JSON.parse(localStorage.getItem("showProfile")) === false || JSON.parse(localStorage.getItem("showProfile")) == null) {
                   navigate("/admin_log/")
             }
       }, [status])
@@ -47,8 +48,96 @@ const SelfLearning = () => {
             }
       }, [obj])
 
+      const FETCHDATA = async () => {
+            await fetch("http://localhost:4000/api/selfLearning/" + user_det)
+                  .then(res => {
+                        if (!res.ok) {
+                              throw Error("Error in fetching the data");
+                        }
+                        return res.json();
+                  })
+                  .then(data => { console.log("DATA IS FETCHED"); setTableData(data); handleYear(aca_year); setFilter_cont(data) })
+
+
+      }
+      useEffect(() => {
+            FETCHDATA();
+            handleUpdate();
+            localStorage.setItem("academic_year", "")
+      }, [user_det, showEdit])
+
+      useEffect(() => {
+            setAcaYear(localStorage.getItem("academic_year"))
+            handleYear(aca_year);
+
+      }, [aca_year])
+
+      const handleYear = (aca_year) => {
+            console.log(aca_year)
+            if ((aca_year).length === 0) { setShowAll(true) }
+            if ((aca_year).length > 0) {
+                  table_data && setFilter_cont(table_data.filter((item) => (item.academic_year).slice(0, (aca_year).length) === (aca_year)))
+            }
+            else {
+                  table_data && setFilter_cont(table_data)
+            }
+      }
+
+      useEffect(() => {
+            FETCHDATA();
+            handleYear(aca_year);
+            if (aca_year.length > 0) {
+                  setFilter_cont(table_data.filter((item) => (item.academic_year).slice(0, (aca_year).length) === (aca_year)))
+            }
+      }, [])
+
+      const handleUpdate = async (id = "") => {
+            FETCHDATA();
+            handleYear(aca_year);
+
+            if (aca_year) {
+                  let tempObj;
+                  await fetch("http://localhost:4000/api/selfLearning/" + user_det)
+                        .then(res => {
+                              if (!res.ok) {
+                                    throw Error("Error in fetching the data");
+                              }
+                              return res.json();
+                        })
+                        .then(data => {
+                              setTableData(data)
+                              tempObj = (table_data.filter((item) => (item.academic_year).slice(0, (aca_year).length) === (aca_year)))
+                              if (id.length > 0) {
+                                    tempObj = (tempObj.filter((item) => (id != item._id)))
+                              }
+                              // tempObj.map(item => (console.log(item.avg_marks)))
+                              console.log("INSIDE FILTER : ", tempObj)
+                        })
+                  const obj = {
+                        "table_name": "self_learning",
+                        "name": user_det,
+                        "academic_year": tempObj && tempObj[0]["academic_year"],
+                        "markField": "avg_marks",
+                        "maxMarks": "10"
+                  }
+
+                  console.log(obj)
+                  await fetch("http://localhost:4000/api/markUpdate2/", {
+                        method: "PATCH",
+                        headers: {
+                              "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(obj)
+                  })
+            }
+
+            localStorage.setItem("academic_year", "");
+            setAcaYear("")
+      }
+      
+
       return (
-            <AdminEditStatus.Provider value={{ showEdit, setShowEdit }}>
+            <AdminEditStatus.Provider value={{ showEdit, setShowEdit,handleUpdate}}>
                   <>
                         
                         {showEdit && entryEdit && <SelfLearningEdit data={entryEdit} m_id={id} />}
@@ -67,8 +156,8 @@ const SelfLearning = () => {
                                                 <h1 style={{ textAlign: "center" }}>SELF LEARNING</h1>
                                                 <form onSubmit={(e) => { e.preventDefault() }}>
                                                       <label>Staff name : </label>
-                                                      <select onInput={(e) => { setUserdet(e.target.value) }}>
-                                                            <option></option>
+                                                      <select onInput={(e) => { setUserdet(e.target.value); localStorage.setItem("name", e.target.value) }}>
+                                                            <option disabled selected><i>Choose</i></option>
                                                             {
                                                                   stafflist_status && obj.map((mp) => (
                                                                         <option defaultValue={mp.name} key={mp._id}>{mp.name}</option>
@@ -79,16 +168,10 @@ const SelfLearning = () => {
                                                       <Row className="mb-3" style={{ width: "40%" }}>
                                                             <Col>
                                                                   <label>Academic Year From : </label>
-                                                                  <input type="text" name="" onInput={(e) => {
-                                                                        if ((e.target.value).length === 0) { setShowAll(true) }
-                                                                        if ((e.target.value).length > 0) {
-                                                                              setFilter_cont(table_data.filter((item) => (item.academic_year).slice(0, (e.target.value).length) === (e.target.value)))
-                                                                        }
-                                                                        else {
-                                                                              setFilter_cont(table_data)
-                                                                        }
-                                                                        console.log(filter_cont)
-
+                                                                  <input type="text" name="" value={localStorage.getItem("academic_year")} onChange={(e) => {
+                                                                        setAcaYear(e.target.value)
+                                                                        handleYear(e.target.value)
+                                                                        localStorage.setItem("academic_year", e.target.value)
                                                                   }} />
                                                             </Col>
                                                       </Row>
@@ -122,17 +205,45 @@ const SelfLearning = () => {
                                                                                     <td>{m.Duration}</td>
                                                                                     <td>{m.Credits}</td>
                                                                                     <td>{m.marks}</td>
-                                                                                    <td>
-                                                                                          <button type="" onClick={() => { setShowEdit(true); setEntryEdit(m); setID(m._id) }}>{<EditIcon />}</button>
-                                                                                          <button type="" onClick={() => {
 
-                                                                                                if (window.confirm("Do you want to delete ??") == true) {
-                                                                                                      fetch("/api/selfLearning/del/" + m._id)
-                                                                                                      window.location.reload();
-                                                                                                      alert("DELETED SUCCESSFULLY")
+                                                                                    <td>
+                                                                                          <button type="" onClick={() => {
+                                                                                                if (localStorage.getItem("academic_year")) {
+                                                                                                      setShowEdit(true); setEntryEdit(m); setID(m._id);
+
                                                                                                 }
+                                                                                                else {
+                                                                                                      alert("Set The academic year")
+                                                                                                }
+
+                                                                                          }
+                                                                                          }>{<EditIcon />}</button>
+                                                                                          <button type="" onClick={async () => {
+                                                                                                setUserdet(localStorage.getItem("name"))
+                                                                                                // setAcaYear(localStorage.getItem("academic_year"))
+
+                                                                                                if (localStorage.getItem("academic_year")) {
+                                                                                                      if (window.confirm("Do you want to delete ??") === true) {
+                                                                                                            await fetch("/api/selfLearning/del/" + m._id)
+                                                                                                                  .then(res => {
+                                                                                                                        return res.json()
+                                                                                                                  })
+                                                                                                                  .then(data => {
+                                                                                                                        handleUpdate(m._id);
+                                                                                                                  })
+
+                                                                                                            alert("DELETED SUCCESSFULLY")
+
+                                                                                                      }
+                                                                                                }
+                                                                                                else {
+                                                                                                      alert("SET THE ACADEMIC YEAR")
+                                                                                                }
+                                                                                                localStorage.setItem("academic_year", "")
+                                                                                                setAcaYear(" ")
                                                                                           }}>{<DeleteForeverIcon />}</button>
                                                                                     </td>
+
 
                                                                               </tr>
                                                                         ))

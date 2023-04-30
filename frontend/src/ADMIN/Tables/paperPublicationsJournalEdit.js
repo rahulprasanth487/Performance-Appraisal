@@ -8,18 +8,18 @@ import { Container, Row, Col } from "react-bootstrap";
 
 const PaperInJournalsEdit = (props) => {
 
-      const { showEdit, setShowEdit } = useContext(AdminEditStatus)
+      const { showEdit, setShowEdit,handleUpdate } = useContext(AdminEditStatus)
       const [temp_obj, setTempObj] = useState(props.data)
       console.log(temp_obj)
       delete temp_obj._id
       console.log(temp_obj)
       const navigate = useNavigate()
       const [status, setStatus] = useState(() => {
-            return JSON.parse(sessionStorage.getItem("showProfile"));
+            return JSON.parse(localStorage.getItem("showProfile"));
       })
 
       useEffect(() => {
-            if (JSON.parse(sessionStorage.getItem("showProfile")) === false || JSON.parse(sessionStorage.getItem("showProfile")) == null) {
+            if (JSON.parse(localStorage.getItem("showProfile")) === false || JSON.parse(localStorage.getItem("showProfile")) == null) {
                   navigate("/admin_log/")
             }
       }, [status])
@@ -66,24 +66,27 @@ const PaperInJournalsEdit = (props) => {
                                                 <input type="text" name="" defaultValue={props.data.quartile} onInput={(e) => { temp_obj.quartile = e.target.value }} />
                                           </Col>
                                           <Col>
-                                                <label>mark</label>
-                                                <input type="text" name="" defaultValue={props.data.mark} onInput={(e) => { temp_obj.mark = e.target.value }} />
+                                                <label>marks</label>
+                                                <input type="text" name="" defaultValue={props.data.marks} onInput={(e) => { temp_obj.marks = e.target.value }} />
                                           </Col>
                                     </Row>
 
 
-                                    <button className="btn btn-primary" type="submit" onClick={(e) => {
-                                          // console.log(props.data._id)
-                                          // console.log(temp_obj)
-                                          fetch("/api/paperJournals/patch/" + props.m_id, {
+                                    <button className="btn btn-primary" type="submit" onClick={async (e) => {
+                                          e.preventDefault()
+                                          const waiting = await fetch("/api/paperJournals/patch/" + props.m_id, {
                                                 method: "PATCH",
                                                 headers: {
                                                       "Content-Type": "application/json",
                                                 },
                                                 body: JSON.stringify(temp_obj)
                                           })
-                                                .then((e) => { e.json() })
+                                          console.log(waiting.ok)
+                                          if (waiting.ok) {
+                                                handleUpdate()
+                                          }
                                           alert("UPDATED SUCCESSFULLY")
+                                          setShowEdit(false)
                                     }}>SUBMIT</button>
                               </form>
                         </Container>

@@ -17,7 +17,7 @@ const UserDashboard = (props) => {
       const fetchData = async () => {
             const response = await fetch("http://localhost:4000/api/stafflist/")
             const data = await response.json()
-            setData(data.filter((item)=>item.email===sessionStorage.getItem("email")))
+            setData(data.filter((item)=>item.email===localStorage.getItem("email")))
             
       }
 
@@ -26,7 +26,7 @@ const UserDashboard = (props) => {
       }, [temp])
 
       useEffect(() => {
-            if ((JSON.parse(sessionStorage.getItem("UserLoginStatus")) === "false") || (JSON.parse(sessionStorage.getItem("UserLoginStatus")) === null))
+            if ((JSON.parse(localStorage.getItem("UserLoginStatus")) === "false") || (JSON.parse(localStorage.getItem("UserLoginStatus")) === null))
             {
 
                   navigate("/user")

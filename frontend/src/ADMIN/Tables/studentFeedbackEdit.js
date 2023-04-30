@@ -8,18 +8,18 @@ import { Container, Row, Col } from "react-bootstrap";
 
 const StudentsFeedbackEdit = (props) => {
 
-      const { showEdit, setShowEdit } = useContext(AdminEditStatus)
+      const { showEdit, setShowEdit,handleUpdate} = useContext(AdminEditStatus)
       const [temp_obj, setTempObj] = useState(props.data)
-      console.log(temp_obj)
+      // console.log(temp_obj)
       delete temp_obj._id
-      console.log(temp_obj)
+      // console.log(temp_obj)
       const navigate = useNavigate()
       const [status, setStatus] = useState(() => {
-            return JSON.parse(sessionStorage.getItem("showProfile"));
+            return JSON.parse(localStorage.getItem("showProfile"));
       })
 
       useEffect(() => {
-            if (JSON.parse(sessionStorage.getItem("showProfile")) === false || JSON.parse(sessionStorage.getItem("showProfile")) == null) {
+            if (JSON.parse(localStorage.getItem("showProfile")) === false || JSON.parse(localStorage.getItem("showProfile")) == null) {
                   navigate("/admin_log/")
             }
       }, [status])
@@ -36,7 +36,7 @@ const StudentsFeedbackEdit = (props) => {
                         <Container>
                               <div className="editTop">
                                     <h3 style={{ fontFamily: "monospace" }}>EDIT DETAILS</h3>
-                                    <div className="closeButton" onClick={() => { setShowEdit(false) }}> <HighlightOffIcon /> </div>
+                                    <div className="closeButton" onClick={() => { setShowEdit(false)}}> <HighlightOffIcon /> </div>
                               </div>
 
                               <form className="EditForm">
@@ -71,18 +71,24 @@ const StudentsFeedbackEdit = (props) => {
                                     </Row>
 
 
-                                    <button className="btn btn-primary" type="submit" onClick={(e) => {
-                                          // console.log(props.data._id)
-                                          // console.log(temp_obj)
-                                          fetch("/api/studFeedback/patch/" + props.m_id, {
+                                    <button className="btn btn-primary" type="submit" onClick={async (e) => {
+                                          e.preventDefault()
+                                          const waiting=await fetch("/api/studFeedback/patch/" + props.m_id, {
                                                 method: "PATCH",
                                                 headers: {
                                                       "Content-Type": "application/json",
                                                 },
                                                 body: JSON.stringify(temp_obj)
                                           })
-                                                .then((e) => { e.json() })
+                                          console.log(waiting.ok)
+                                          if(waiting.ok)
+                                          {
+                                                handleUpdate()
+                                          }
                                           alert("UPDATED SUCCESSFULLY")
+                                          setShowEdit(false)
+
+                                          
                                     }}>SUBMIT</button>
                               </form>
                         </Container>

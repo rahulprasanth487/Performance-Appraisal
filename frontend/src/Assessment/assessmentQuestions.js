@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 import Alert from '@mui/material/Alert';
 import Snackbar from '@mui/material/Snackbar';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 
 const AssessmentQuestions = () => {
@@ -15,7 +16,7 @@ const AssessmentQuestions = () => {
       const [temp,setTemp]=useState(0);
       const [buttonClicked,setButton]=useState(true);
       const [status, setStatus] = useState(() => {
-            return JSON.parse(sessionStorage.getItem("showProfile"));
+            return JSON.parse(localStorage.getItem("showProfile"));
       })
       
 
@@ -60,7 +61,7 @@ const AssessmentQuestions = () => {
       //-----------------------------------------------------
 
       useEffect(() => {
-            if (JSON.parse(sessionStorage.getItem("showProfile")) === false || JSON.parse(sessionStorage.getItem("showProfile")) == null) {
+            if (JSON.parse(localStorage.getItem("showProfile")) === false || JSON.parse(localStorage.getItem("showProfile")) == null) {
                   navigate("/admin_log/")
             }
       }, [status])
@@ -170,7 +171,7 @@ const AssessmentQuestions = () => {
 
                               <Container>
                                     {
-                                          (open === "1") && <Snackbar sx={{ width: "700px", fontSize: "30", padding: "10px", background: "rgb(49, 204, 90)", borderRadius: "10px" }} open={open} autoHideDuration={6000} onClose={handleClose}>
+                                          (open === "1") && <Snackbar sx={{ width: "700px", fontSize: "30", padding: "10px", background: "rgb(49, 204, 90)", borderRadius: "10px" }} open={open} autoHideDuration={1000} onClose={handleClose}>
                                                 <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
                                                       Question inserted Successfully
                                                 </Alert>
@@ -179,7 +180,7 @@ const AssessmentQuestions = () => {
                                     }
 
                                     {
-                                          (open === "2") && <Snackbar sx={{ width: "700px", fontSize: "30", padding: "10px", background: "rgb(255, 112, 112)", borderRadius: "10px" }} open={open} autoHideDuration={6000} onClose={handleClose}>
+                                          (open === "2") && <Snackbar sx={{ width: "700px", fontSize: "30", padding: "10px", background: "rgb(255, 112, 112)", borderRadius: "10px" }} open={open} autoHideDuration={1000} onClose={handleClose}>
                                                 <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
                                                       Question is not inserted
                                                 </Alert>
@@ -187,7 +188,7 @@ const AssessmentQuestions = () => {
                                     }
 
                                     {
-                                          (open === "3") && <Snackbar sx={{ width: "700px", fontSize: "30", padding: "10px", background: "rgb(49, 204, 90)", borderRadius: "10px" }} open={open} autoHideDuration={6000} onClose={handleClose}>
+                                          (open === "3") && <Snackbar sx={{ width: "700px", fontSize: "30", padding: "10px", background: "rgb(49, 204, 90)", borderRadius: "10px" }} open={open} autoHideDuration={1000} onClose={handleClose}>
                                                 <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
                                                       Questions deleted Successfully
                                                 </Alert>
@@ -195,7 +196,7 @@ const AssessmentQuestions = () => {
                                     }
 
                                     {
-                                          (open === "4") && <Snackbar sx={{ width: "700px", fontSize: "30", padding: "10px", background: "rgb(255, 112, 112)", borderRadius: "10px" }} open={open} autoHideDuration={6000} onClose={handleClose}>
+                                          (open === "4") && <Snackbar sx={{ width: "700px", fontSize: "30", padding: "10px", background: "rgb(255, 112, 112)", borderRadius: "10px" }} open={open} autoHideDuration={1000} onClose={handleClose}>
                                                 <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
                                                       Questions are not deleted
                                                 </Alert>
@@ -235,7 +236,21 @@ const AssessmentQuestions = () => {
                                                 <Row>
                                                       <Col>
                                                             <label>Correct Answer</label>
-                                                            <input type="text" name="answer" placeholder="answer" onInput={(e) => { choiceBased.answer = e.target.value }} required/>
+                                                            <input type="text" name="answer" placeholder="correct option number Eg:1" onInput={(e) => { 
+                                                                  if(e.target.value == "1")
+                                                                  {
+                                                                        choiceBased.answer=choiceBased.option1;
+                                                                  }
+                                                                  else if (e.target.value == "2") {
+                                                                        choiceBased.answer = choiceBased.option2;
+                                                                  }
+                                                                  else if (e.target.value == "3") {
+                                                                        choiceBased.answer = choiceBased.option3;
+                                                                  }
+                                                                  else if (e.target.value == "4") {
+                                                                        choiceBased.answer = choiceBased.option4;
+                                                                  }
+                                                            }} required/>
                                                       </Col>
                                                       <Col>
                                                             <label >Marks</label>
@@ -303,30 +318,48 @@ const AssessmentQuestions = () => {
                                     <div>
                                           {question_list && (question_list).map((question)=>(
                                                 
-                                                <div className='questionBox'>
-                                                      
-                                                      <Row>
-                                                            
-                                                            <h4>{question.Question}</h4>
-                                                            {(question.type === "DescriptiveBased") && <Col><textarea rows={3} style={{width:"100%",resize:"none"}} wrap={"hard"} ></textarea></Col>}
-                                                            {(question.type === "ChoiceBased") && <div>
-                                                                  <div className='form-check'>
-                                                                        <input className='form-check-input' type="radio" name="option" />{question.option1}
+                                                <div style={{display:"flex",alignContent:"center"}}>
+                                                      <div style={{padding:"30px 5px 5px 5px"}}>
+                                                            <span id='deleteQuestionIcon' onClick={async ()=>{
+                                                                  if(window.prompt("Enter 'CONFIRM' to remove - ")==="CONFIRM")
+                                                                  {
+                                                                        await fetch("http://localhost:4000/api/assessment/delete/"+question._id, {
+                                                                              method: "DELETE"
+                                                                        })
+                                                                        .then(res=>setTemp(Math.random()))
+                                                                        .then(data => setTemp(Math.random()))
+                                                                        setOpen("3")
+                                                                  }
+                                                                  else{
+                                                                        setOpen("4")
+                                                                  }
+                                                            }}><DeleteIcon /></span>
+                                                      </div>
+                                                      <div className='questionBox'>
+
+                                                            <Row>
+
+                                                                  <h4>{question.Question}</h4>
+                                                                  {(question.type === "DescriptiveBased") && <Col><textarea rows={3} style={{ width: "100%", resize: "none" }} wrap={"hard"} ></textarea></Col>}
+                                                                  {(question.type === "ChoiceBased") && <div>
+                                                                        <div className='form-check'>
+                                                                              <input className='form-check-input' type="radio" name="option" />{question.option1}
+                                                                        </div>
+                                                                        <div className='form-check'>
+                                                                              <input className='form-check-input' type="radio" name="option" />{question.option2}
+                                                                        </div>
+                                                                        <div className='form-check'>
+                                                                              <input className='form-check-input' type="radio" name="option" />{question.option3}
+                                                                        </div>
+                                                                        <div className='form-check'>
+                                                                              <input className='form-check-input' type="radio" name="option" />{question.option4}
+                                                                        </div>
                                                                   </div>
-                                                                  <div className='form-check'>
-                                                                        <input className='form-check-input' type="radio" name="option" />{question.option2}
-                                                                  </div>
-                                                                  <div className='form-check'>
-                                                                        <input className='form-check-input' type="radio" name="option" />{question.option3}
-                                                                  </div>
-                                                                  <div className='form-check'>
-                                                                        <input className='form-check-input' type="radio" name="option" />{question.option4}
-                                                                  </div>
-                                                            </div>
-                                                            }
-                                                            
-                                                      </Row>
-                                                </div>
+                                                                  }
+
+                                                            </Row>
+                                                      </div>
+                                                </div>      
                                           ))}
                                     </div>
                                     <br/><br/><br/>
