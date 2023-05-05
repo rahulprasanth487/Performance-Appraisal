@@ -109,19 +109,18 @@ const NewRegisterForm = () => {
       };
       
 
-      const [temp,setTemp]=useState(false)
-      const [temp2, setTemp2] = useState(false)
+      
       
       return ( 
             <>
                   <Navbar/>
                   <Container>
 
-                        {temp && <StatusCheck />}
+                        {/* {temp && <StatusCheck />}
                         <button onClick={() => { setTemp(true) }}>CLICK</button>
                         <br/>
                         {temp2 && <SignUpForm />}
-                        <button onClick={() => { setTemp2(true) }}>SignUp</button>
+                        <button onClick={() => { setTemp2(true) }}>SignUp</button> */}
 
                         <br/>
                         <h1 className="text-center">Register</h1>

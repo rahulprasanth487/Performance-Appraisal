@@ -138,6 +138,7 @@ const SetAcademicYear = () => {
       return ( 
             <>
                   <Container>
+                        <hr />
                         <h2>ACADEMIC YEAR</h2>
                         <hr />
                         <center>

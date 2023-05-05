@@ -1,6 +1,6 @@
-import './App.css';
 import './admin.css';
 import './user.css'
+import LandingPage from './LANDING PAGE/LandingPage';
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 //admin files
 import AdminDashboard from './ADMIN/adminDashboard';
@@ -49,6 +49,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
+          <Route path='/' element={<LandingPage />} />
 
           {/* //admin ROUTES */}
           {/* <AdminLoginStatus.Provider value={{ adminStatus,setadminStatus }}> */}

@@ -13,6 +13,8 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import SetAcademicYear from "./DASHBOARD/setAcademicYear";
 import "./DASHBOARD/dashboard.css"
+import SetCircular from "./DASHBOARD/setCircular";
+import { SettingsCellTwoTone } from "@mui/icons-material";
 
 const AdminDashboard = () => {
       const [examDuration,setExamDuration] = useState()
@@ -92,7 +94,7 @@ const AdminDashboard = () => {
                               results: true
                         })
                   })
-                  handleFetchTableData()
+                  handleFetchTableData();
             }
       }
 
@@ -128,6 +130,7 @@ const AdminDashboard = () => {
 
                               
                               <Container>
+                                    <hr />
                                     <h2>ASSESSMENTS</h2>
                                     <hr />
 
@@ -150,8 +153,13 @@ const AdminDashboard = () => {
                                                 }
                                           </Row>
                                     </center>
+                                    <br/>
+                                          
+                                    <SetCircular />
+
                               </Container>
                         </div>
+
                   </div>
             
 

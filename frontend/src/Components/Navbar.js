@@ -18,45 +18,7 @@ import MoreIcon from '@mui/icons-material/MoreVert';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import deptLogo from './images/Madras_Institute_of_Technology_logo.png'
 import aulogo from './images/anna-university-logo.png'
-const Search = styled('div')(({ theme }) => ({
-  position: 'relative',
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  '&:hover': {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginRight: theme.spacing(2),
-  marginLeft: 0,
-  width: '100%',
-  [theme.breakpoints.up('sm')]: {
-    marginLeft: theme.spacing(3),
-    width: 'auto',
-  },
-}));
-
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: '100%',
-  position: 'absolute',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: 'inherit',
-  '& .MuiInputBase-input': {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('md')]: {
-      width: '20ch',
-    },
-  },
-}));
+import { Bloodtype } from '@mui/icons-material';
 
 export default function PrimarySearchAppBar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -76,11 +38,6 @@ export default function PrimarySearchAppBar() {
     setAnchorEl(null);
     handleMobileMenuClose();
   };
-
-  const handleMobileMenuOpen = (event) => {
-    setMobileMoreAnchorEl(event.currentTarget);
-  };
-
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
     <Menu
@@ -122,53 +79,57 @@ export default function PrimarySearchAppBar() {
     >
     </Menu>
   );
-  const matches = useMediaQuery('(min-width:840px)');
-  if(matches){
-  return (
-    <span>
-    <Box sx={{ flexGrow: 1}}>
-      <AppBar position="static" sx={{height:100}}>
-        <Toolbar sx={{justifyContent:'center',margin:2}}>
-            <img src={deptLogo} alt="Department Logo" style={{width:'80px',height:'70px',marginRight:'30px'}}/>
-          <Typography
-            variant="h4"
-            noWrap
-            component="div"
-            
-            sx={{ display: { xs: 'none', sm: 'block' } }}
-          >
-            MADRAS INSTITUTE OF TECHNOLOGY
-          </Typography>
-          <img src={aulogo} alt="AU Logo" style={{width:'80px',height:'70px',marginLeft:'30px'}}/>
-        </Toolbar>
-      </AppBar>
-      {renderMobileMenu}
-      {renderMenu}
-    </Box>
-    {/* {`(min-width:600px) matches: ${matches}`} */}
-    </span>
-  );}
-  else{
+  const matches = useMediaQuery('(min-width:600px)');
+  const matches1 = useMediaQuery('(max-width:839px)');
+  const matches2 = useMediaQuery('max-width:599');
+  if (matches) {
     return (
-    <span>
-    <Box sx={{ flexGrow: 1}}>
-      <AppBar position="static" sx={{height:80}}>
-        <Toolbar sx={{justifyContent:'center',margin:1}}>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            
-            sx={{ display: { xs: 'none', sm: 'block' } }}
-          >
-            MADRAS INSTITUTE OF TECHNOLOGY
-          </Typography>
-        </Toolbar>
-      </AppBar>
-      {renderMobileMenu}
-      {renderMenu}
-    </Box>
-    </span>
+      <span>
+        <Box sx={{ flexGrow: 1 }}>
+          <AppBar position="static" sx={{ height: 100, display: "flex", justifyContent: "center", alignItems: "center", }}>
+            <Toolbar sx={{ justifyContent: 'center', }}>
+              <img src={deptLogo} alt="Department Logo" style={{ width: '80px', height: '70px', marginRight: '30px' }} />
+              <Typography
+                variant="h4"
+                noWrap
+                component="div"
+
+                sx={{ display: { xs: 'none', sm: 'block' }, fontWeight: '500', fontSize: "2.5vw" }}
+              >
+                MADRAS INSTITUTE OF TECHNOLOGY
+              </Typography>
+              <img src={aulogo} alt="AU Logo" style={{ width: '80px', height: '70px', marginLeft: '30px' }} />
+            </Toolbar>
+          </AppBar>
+          {renderMobileMenu}
+          {renderMenu}
+        </Box>
+        {/* {`(min-width:600px) matches: ${matches}`} */}
+      </span>
+    );
+  }
+  else {
+    return (
+      <span>
+        <Box sx={{ flexGrow: 1 }}>
+          <AppBar position="static" sx={{ height: 80 }} style={{ background: 'red !important' }}>
+            <Toolbar sx={{ justifyContent: 'center', margin: 1, fontSize: "2vw" }}>
+              <img src={deptLogo} alt="Department Logo" style={{ width: '80px', height: '70px', marginRight: '30px' }} />
+              <Typography
+                noWrap
+                component="div"
+                sx={{ fontWeight: '200', fontSize: "2vw" }}
+              >
+                MADRAS INSTITUTE OF TECHNOLOGY
+              </Typography>
+              <img src={aulogo} alt="AU Logo" style={{ width: '80px', height: '70px', marginLeft: '30px' }} />
+
+            </Toolbar>
+          </AppBar>
+          {renderMobileMenu}
+          {renderMenu}
+        </Box>
+      </span>
     );
   }
 

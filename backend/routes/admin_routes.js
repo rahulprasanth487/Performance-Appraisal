@@ -876,5 +876,34 @@ router.patch("/admin/results/publish/:year", (req, res) => {
 })
 
 
+//FOR CIRCULARS
+router.post("/ADMIN/setCircular/", (req, res) => {
+      const obj = req.body;
+      console.log(obj)
+      MongoClient.connect(process.env.MONGO_URI, function (err, db) {
+            if (err) throw err;
+            var dbo = db.db("Performance_appraisal");
+            dbo.collection("circulars").insertOne(obj, function (err, result) {
+                  if (err) throw err;
+                  res.json(result)
+                  return result;
+            })
+      })
+})
+
+router.delete("/ADMIN/circularDelete/:id", (req, res) => {
+      const { id } = req.params;
+
+      
+      MongoClient.connect(process.env.MONGO_URI, function (err, db) {
+            if (err) throw err;
+            var dbo = db.db("Performance_appraisal");
+            dbo.collection("circulars").deleteOne({ "_id": new require("mongodb").ObjectId(id) }, (err, result) => {
+                  if (err) throw err;
+                  res.json(result)
+                  return result;
+            })
+      })
+})
 
 module.exports=router;

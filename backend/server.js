@@ -9,7 +9,8 @@ const express=require('express');
 const app=express();
 const mongoose=require('mongoose');
 const cors=require("cors")
-
+const fileUploadRoute=require("./routes/fileUploadRoutes")
+const path=require("path")
 app.use(cors())
 
 //middleware
@@ -19,12 +20,15 @@ app.use((req,res,next)=>{
       next();
 })
 
+app.use('/uploads',express.static(path.join(__dirname,'uploads')));
+
 app.use('/api/tablesCreate/',tableData)
 app.use('/api/adminlogin/',adminLogin)
 app.use('/api/',admin_routes)
 app.use('/api/',admin_routes)
 app.use('/api/user/',user_routes)
 app.use('/api/new_register/',new_register_routes)
+app.use("/api/files/",fileUploadRoute.routes)
 //DB connection
 mongoose.set('strictQuery',true);
 mongoose.connect(process.env.MONGO_URI)

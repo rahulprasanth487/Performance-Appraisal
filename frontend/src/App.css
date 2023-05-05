@@ -3,26 +3,248 @@ body{
       height: 100%;
 }
 
-.navbar-container
-{
-      margin: 0px;
-      border: none;
+
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
+
+/* .App {
+      text-align: center;
+} */
+
+.App-logo {
+      height: 40vmin;
+      pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+      .App-logo {
+            animation: App-logo-spin infinite 20s linear;
+      }
+}
+
+.App-header {
+      background-color: #282c34;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: calc(10px + 2vmin);
+      color: white;
+}
+
+.App-link {
+      color: #61dafb;
+}
+
+.carousel-container {
+      height: 40%;
       width: 100%;
-      height: 100px;
-      background-color: rgb(13, 131, 249);
+}
+
+.carousel-items {
+      width: 100%;
+      display: flex;
+}
+
+.carousel-item img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: cover;
+}
+
+@keyframes App-logo-spin {
+      from {
+            transform: rotate(0deg);
+      }
+
+      to {
+            transform: rotate(360deg);
+      }
+}
+
+/* .container {
+      height: 100%;
+      overflow: auto;
+} */
+
+.nav {
+      background: transparent;
+}
+
+.header {
+
+      background: url(./Components/images/hero-bg.jpg) top center;
+      background-size: cover;
+      position: relative;
+      height: 100vh;
+      width: 100%;
+      background-color: #00000081;
+}
+
+.header:before {
+      content: "";
+      background: rgba(0, 0, 0, 0.6);
+      position: absolute;
+      bottom: 0;
+      top: 0;
+      left: 0;
+      right: 0;
+}
+
+.header .heading {
+      position: absolute;
+      bottom: 0;
+      top: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+}
+
+.header h1 {
+      margin: 30px 0 10px 0;
+      font-size: 48px;
+      font-weight: 700;
+      line-height: 56px;
+      text-transform: uppercase;
+      color: #fff;
+}
+
+.header h2 {
+      color: #eee;
+      margin-bottom: 50px;
+      font-size: 24px;
+}
+
+.header .btn-get-started {
+      font-family: "Poppins", sans-serif;
+      text-transform: uppercase;
+      font-weight: 500;
+      font-size: 16px;
+      letter-spacing: 1px;
+      display: inline-block;
+      padding: 8px 28px;
+      border-radius: 50px;
+      transition: 0.5s;
+      margin: 10px;
+      border: 2px solid #fff;
+      color: #fff;
+      text-decoration: none;
+}
+
+.header .btn-get-started:hover {
+      background: #2dc997;
+      border: 2px solid #2dc997;
+      text-decoration: none;
+}
+
+section {
+      overflow: hidden;
+      margin: 5%;
+}
+
+section .title {
+      font-weight: 600;
+      display: flex;
+      justify-content: left;
+}
+
+.ans {
+      margin-left: 0%;
+      text-align: justify;
+      font-size: calc(15px + 0.390625vw);
+}
+
+.sideimg {
+      font-size: 1.1vw;
+}
+
+.section-header .section-description {
+      text-align: center;
+      padding-bottom: 40px;
+      color: #999;
+}
+
+.section-header .section-title {
+      font-size: 32px;
+      color: #111;
+      text-transform: uppercase;
+      text-align: center;
+      font-weight: 700;
+      margin-bottom: 5px;
+}
+
+.options {
+      margin: 7%;
 }
 
 
-/* Admin side container */
-/* 
-.side_container
+
+.iconContainers {
+      padding: 0.50%;
+      background-color: rgba(2, 143, 204);
+      border-radius: 20px;
+      margin: 3%;
+      display: flex;
+      flex-direction: column;
+      align-content: center;
+      justify-content: center;
+}
+
+.iconContainers:hover {
+      transform: scale(1.1);
+      transition: 0.5s;
+      cursor: pointer;
+}
+.icons
 {
-      width: 150px;
-      background-color: red;
-      height: 100%;
-      position: absolute;
-      top:0px;
-      bottom: 0px;
-      left: 0px;
-      z-index:-1;
-} */
+      text-align: center;
+}
+
+.texts {
+      /* padding: 1vw; */
+      padding: 1vw;
+      margin: 10px;
+      font-size: 1.2vw;
+      font-weight: 500;
+      color: white;
+      text-align: center;
+}
+
+@media (max-width: 768px) {
+      #header h2 {
+            font-size: 18px;
+            line-height: 24px;
+            margin: 30px;
+      }
+}
+
+@media (max-width: 768px) {
+      .header h1 {
+            font-size: 28px;
+            line-height: 36px;
+      }
+}
+
+@media (min-width: 1024px) {
+      .header {
+            background-attachment: fixed;
+      }
+}
+
+@keyframes headinganim {
+      0% {
+            transform: scale(1);
+      }
+
+      50% {
+            transform: scale(1.2);
+      }
+
+      100% {
+            transform: scale(1);
+      }
+}

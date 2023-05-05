@@ -67,8 +67,7 @@ const UserSidebar = () => {
                                     // localStorage.setItem('email', "");
                                     localStorage.clear();
                                     alert("Bye")
-                                    navigate("/user/")
-                                    window.location.reload();
+                                    navigate("/")
                               }}>Logout</MenuItem>
 
 

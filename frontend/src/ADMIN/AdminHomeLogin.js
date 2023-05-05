@@ -1,6 +1,7 @@
 import React,{useState,useContext} from "react";
 import AdminLoginStatus from "../CONTEXT/AdminLoginStatus";
 import { useNavigate } from "react-router-dom";
+import Navbar from "../Components/Navbar";
 
 const AdminHomeLogin = () => {
       const [username,setUsername]=useState("");
@@ -30,18 +31,22 @@ const AdminHomeLogin = () => {
 
       }
       return ( 
-            <div className="ad_log_container">
-                  <div className="admin_log_form">
-                        <form method="post" onSubmit={handleSubmit}>
-                              <h2 className="admin_title">ADMIN LOGIN</h2>
-                              <label>USERNAME : </label>
-                              <input type="text" name="username" required placeholder="username" onInput={(e) => setUsername(e.target.value)} />
-                              <label>PASSWORD : </label>
-                              <input type="password" name="password" required placeholder="password" onInput={(e) => setPassword(e.target.value)} />
-                              <button type="submit">SUBMIT</button>
-                        </form>
+            <>
+                  <Navbar/>
+                  <br/>
+                  <div className="ad_log_container">
+                        <div className="admin_log_form">
+                              <form method="post" onSubmit={handleSubmit}>
+                                    <h2 className="admin_title">ADMIN LOGIN</h2>
+                                    <label>USERNAME : </label>
+                                    <input type="text" name="username" required placeholder="username" onInput={(e) => setUsername(e.target.value)} />
+                                    <label>PASSWORD : </label>
+                                    <input type="password" name="password" required placeholder="password" onInput={(e) => setPassword(e.target.value)} />
+                                    <button type="submit">SUBMIT</button>
+                              </form>
+                        </div>
                   </div>
-            </div>
+            </>
        );
 }
  

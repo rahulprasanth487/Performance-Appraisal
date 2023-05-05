@@ -69,12 +69,10 @@ const AdminSidebar = () => {
                               <MenuItem icon={<CheckCircleOutlineIcon />} onClick={() => { navigate("/admin/academic_results/") }}>Results</MenuItem>
                               <MenuItem icon={<LogoutIcon />} onClick={()=>{
                                     localStorage.setItem('showProfile', false);
-                                    alert("Bye")
-                                    window.location.reload();
-
+                                    alert("THANK YOU")
                                     localStorage.setItem("name","");
-                                    localStorage.setItem("academic_year","")
-                                    navigate("/admin_log/")
+                                    localStorage.setItem("academic_year","");
+                                    navigate("/");
                               }}>Logout</MenuItem>
 
                               
