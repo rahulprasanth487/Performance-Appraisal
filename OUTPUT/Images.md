@@ -1,4 +1,4 @@
-![image](https://github.com/rahulprasanth487/Performance-Appraisal/assets/75294742/343799a6-d713-4222-8de6-f054e7cbc193)
+
 ![image](https://github.com/rahulprasanth487/Performance-Appraisal/assets/75294742/821aaf03-aa8c-4753-b019-abcb2a86df6a)
 ![image](https://github.com/rahulprasanth487/Performance-Appraisal/assets/75294742/f69c9925-710b-4f97-a521-80414b561044)
 ![image](https://github.com/rahulprasanth487/Performance-Appraisal/assets/75294742/bd5e9a1e-3fde-4d7a-9688-5fff4fab2570)
